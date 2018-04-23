@@ -7,19 +7,18 @@ class Sensor(models.Model):
     lng = models.FloatField()
 
     def __str__(self):
-        return self.id
+        return str(self.id)
 
 class Target(models.Model):
-    time = models.DateTimeField
-    sensor = models.ManyToManyField(Sensor)
+    time = models.DateTimeField(auto_now= True)
+    sensor = models.ForeignKey(Sensor, on_delete=models.CASCADE)
     addr = models.CharField(max_length = 20)
 	
     def getTargetLat(self):
-        return sensor.lat
-
+        return self.sensor.lat
+        
     def getTargetLng(self):
-        return sensor.lng
+        return self.sensor.lng
 
     def __str__(self):
         return self.addr
-	
